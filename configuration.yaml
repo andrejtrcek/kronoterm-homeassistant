@@ -1,0 +1,95 @@
+input_select:
+  kronoterm_rezim:
+    name: Kronoterm Režim delovanja
+    options:
+      - Avtomatski
+      - Poletni
+      - Zimski
+    initial: Avtomatski
+  kronoterm_sv:
+    name: Kronoterm Sanitarna voda
+    options:
+      - Izklop
+      - Vklop
+      - Avtomatsko
+  kronoterm_tc:
+    name: Kronoterm Toplotna črpalka
+    options:
+      - Izklop
+      - Vklop
+      - Avtomatsko
+
+switch:
+  - platform: template
+    switches:
+      kronoterm_sistem:
+        friendly_name: "Kronoterm Sistem"
+        value_template: "{{ is_state('sensor.kronoterm_delovanje_sistema', '1') }}"
+        turn_on:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2011
+            value: 1
+        turn_off:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2011
+            value: 0
+
+      kronoterm_prisilno_sv:
+        friendly_name: "Kronoterm Prisilno SV"
+        value_template: "{{ is_state('sensor.kronoterm_prisilno_sv_status', '1') }}"
+        turn_on:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2014
+            value: 1
+        turn_off:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2014
+            value: 0
+
+      kronoterm_dodatni_vir:
+        friendly_name: "Kronoterm Dodatni vir"
+        value_template: "{{ is_state('sensor.kronoterm_dodatni_vir_status', '1') }}"
+        turn_on:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2015
+            value: 1
+        turn_off:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2015
+            value: 0
+
+      kronoterm_rezervni_vir:
+        friendly_name: "Kronoterm Rezervni vir"
+        value_template: "{{ is_state('sensor.kronoterm_rezervni_vir_status', '1') }}"
+        turn_on:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2017
+            value: 1
+        turn_off:
+          service: modbus.write_register
+          data:
+            hub: kronoterm
+            unit: 20
+            address: 2017
+            value: 0
