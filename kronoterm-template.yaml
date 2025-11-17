@@ -1,0 +1,88 @@
+- sensor:
+    - name: "Kronoterm Delovanje sistema (opis)"
+      state: >
+        {% set val = states('sensor.kronoterm_delovanje_sistema') | int %}
+        {% if val == 0 %} Izklop
+        {% elif val == 1 %} Vklop
+        {% else %} Neznano ({{ val }})
+        {% endif %}
+        
+    - name: "Kronoterm Funkcija delovanja (opis)"
+      state: >
+        {% set val = states('sensor.kronoterm_funkcija_delovanja') | int %}
+        {% if val == 0 %} Ogrevanje
+        {% elif val == 1 %} Sanitarna voda
+        {% elif val == 2 %} Hlajenje
+        {% elif val == 3 %} Ogrevanje bazena
+        {% elif val == 4 %} Pregrevanje sanitarne vode
+        {% elif val == 5 %} Mirovanje
+        {% elif val == 6 %} Zagonska procedura
+        {% elif val == 8 %} Varovanje kompresorja
+        {% else %} Neznano ({{ val }})
+        {% endif %}
+
+    - name: "Kronoterm Program delovanja (opis)"
+      state: >
+        {% set val = states('sensor.kronoterm_program_delovanja') | int %}
+        {% if val == 0 %} Normalno
+        {% elif val == 1 %} ECO
+        {% elif val == 2 %} Comfort
+        {% elif val == 4 %} Sušenje estrihov
+        {% else %} Neznano ({{ val }})
+        {% endif %}
+
+    - name: "Kronoterm Napaka/Opozorilo (opis)"
+      state: >
+        {% set val = states('sensor.kronoterm_napaka_opozorilo') | int %}
+        {% if val == 0 %} Ni napake
+        {% elif val == 1 %} Opozorilo
+        {% elif val == 2 %} Napaka
+        {% else %} Neznano ({{ val }})
+        {% endif %}
+
+    - name: "Kronoterm Režim delovanja (status)"
+      state: >
+        {% set val = states('sensor.kronoterm_rezim_delovanja_surovo') | int %}
+        {% if val == 0 %} Poletni
+        {% elif val == 1 %} Zimski
+        {% else %} Avtomatski
+        {% endif %}
+
+    - name: "Kronoterm Režim delovanja (nastavitev)"
+      state: >
+        {% set val = states('sensor.kronoterm_rezim_delovanja_nastavitev_surovo') | int %}
+        {% if val == 0 %} Avtomatski
+        {% elif val == 1 %} Poletni
+        {% elif val == 2 %} Zimski
+        {% else %} Neznano ({{ val }})
+        {% endif %}
+
+    - name: "Kronoterm Obtočna črpalka (opis)"
+      state: >
+        {% set val = states('sensor.kronoterm_obtocna_crpalka') | int %}
+        {% if val == 0 %} Izklopljena
+        {% elif val == 1 %} Vklopljena
+        {% else %} Neznano ({{ val }})
+        {% endif %}
+
+- select:
+    - name: "Kronoterm Režim delovanja"
+      options: "Avtomatski, Poletni, Zimski"
+      state: >
+        {% set val = states('sensor.kronoterm_rezim_delovanja_nastavitev_surovo') | int %}
+        {% if val == 0 %} Avtomatski
+        {% elif val == 1 %} Poletni
+        {% elif val == 2 %} Zimski
+        {% else %} Neznano
+        {% endif %}
+      select_option:
+        service: modbus.write_register
+        data:
+          hub: kronoterm
+          unit: 20
+          address: 2016
+          value: >
+            {% if option == "Avtomatski" %} 0
+            {% elif option == "Poletni" %} 1
+            {% elif option == "Zimski" %} 2
+            {% endif %}
