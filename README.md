@@ -7,9 +7,8 @@ Pridobivanje podatkov in krmiljenje Kronoterm (Termotehnika) toplotne črpalke s
 # Kako uporabiti YAML?
 - **configuration.yaml** - kodo kopirate v obstoječo **configuration.yaml**. Na vrhu dodate še naslednjo kodo, s katero boste vključili tudi **modbus** in **template** nastavitve:
 
-**modbus: !include kronoterm-modbus.yaml
-
-template: !include kronoterm-template.yaml**
+**modbus: !include kronoterm-modbus.yaml**
+**template: !include kronoterm-template.yaml**
 
 - **kronoterm-modbus.yaml** - datoteko kopirate v **/homeassistant/kronoterm-modbus.yaml** in vpišete IP vašega RS485 TCP strežnika (3. vrstica - zamenjate **[IP ADDRESS]**)
 - **kronoterm-template.yaml** - datoteko kopirate v **/homeassistant/kronoterm-template.yaml**
