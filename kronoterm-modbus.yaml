@@ -1,0 +1,224 @@
+- name: kronoterm
+  type: rtuovertcp
+  host: [IP ADDRESS]
+  port: 8899
+  delay: 2
+  timeout: 5
+  retries: 3
+
+  sensors:
+    - name: "Kronoterm Delovanje sistema"
+      slave: 20
+      address: 1999
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm Funkcija delovanja"
+      slave: 20
+      address: 2000
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm Napaka/Opozorilo"
+      slave: 20
+      address: 2005
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm Režim delovanja (surovo)"
+      slave: 20
+      address: 2006
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm Režim delovanja nastavitev (surovo)"
+      slave: 20
+      address: 2016
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm Program delovanja"
+      slave: 20
+      address: 2007
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm Temperatura zalogovnika"
+      unit_of_measurement: "°C"
+      slave: 20
+      address: 2100
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+
+    - name: "Kronoterm Sanitarna voda"
+      unit_of_measurement: "°C"
+      slave: 20
+      address: 2101
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+
+    - name: "Kronoterm Zunanja temperatura"
+      unit_of_measurement: "°C"
+      slave: 20
+      address: 2102
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+
+    - name: "Kronoterm Dvižni vod"
+      unit_of_measurement: "°C"
+      slave: 20
+      address: 2103
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+
+    - name: "Kronoterm Vstopna voda vira"
+      unit_of_measurement: "°C"
+      slave: 20
+      address: 2104
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+
+    - name: "Kronoterm Izhodna voda vira"
+      unit_of_measurement: "°C"
+      slave: 20
+      address: 2105
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+    
+    - name: "Kronoterm SV status"
+      slave: 20
+      address: 2025
+      input_type: holding
+      data_type: int16
+    
+    - name: "Kronoterm TC status"
+      slave: 20
+      address: 2034
+      input_type: holding
+      data_type: int16
+      
+    - name: "Kronoterm Obtočna črpalka"
+      slave: 20
+      address: 2037
+      input_type: holding
+      data_type: int16
+
+    - name: "Kronoterm ure kompresor ogrevanje"
+      slave: 20
+      address: 2089
+      input_type: holding
+      data_type: int32
+      unit_of_measurement: "h"
+
+    - name: "Kronoterm ure kompresor sanitarna voda"
+      slave: 20
+      address: 2090
+      input_type: holding
+      data_type: int32
+      unit_of_measurement: "h"
+
+    - name: "Kronoterm ure glavna obtočna črpalka"
+      slave: 20
+      address: 2092
+      input_type: holding
+      data_type: int32
+      unit_of_measurement: "h"
+
+    - name: "Kronoterm ure vgrajen dodatni vir"
+      slave: 20
+      address: 2094
+      input_type: holding
+      data_type: int32
+      unit_of_measurement: "h"
+    
+    - name: "Kronoterm Prisilno SV status"
+      unique_id: kronoterm_prisilno_sv_status
+      slave: 20
+      address: 2009
+      input_type: holding
+
+    - name: "Kronoterm Dodatni vir status"
+      unique_id: kronoterm_dodatni_vir_status
+      slave: 20
+      address: 2001
+      input_type: holding
+
+    - name: "Kronoterm Rezervni vir status"
+      unique_id: kronoterm_rezervni_vir_status
+      slave: 20
+      address: 2002
+      input_type: holding
+
+  switches:
+  - name: "Kronoterm Režim Avtomatski"
+    unique_id: kronoterm_rezim_auto
+    write_type: holding
+    slave: 20
+    address: 2016
+    command_on: 0
+    command_off: 0
+
+  - name: "Kronoterm Režim Poletni"
+    unique_id: kronoterm_rezim_summer
+    write_type: holding
+    slave: 20
+    address: 2016
+    command_on: 1
+    command_off: 1
+
+  - name: "Kronoterm Režim Zimski"
+    unique_id: kronoterm_rezim_winter
+    write_type: holding
+    slave: 20
+    address: 2016
+    command_on: 2
+    command_off: 2
+
+  climates:
+    - name: "Kronoterm Sanitarna voda"
+      slave: 20
+      address: 2101
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+      min_temp: 25
+      max_temp: 55
+      temp_step: 0.5
+      target_temp_register: 2022
+
+    - name: "Kronoterm Zalogovnik"
+      slave: 20
+      address: 2100
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+      min_temp: 20
+      max_temp: 80
+      temp_step: 0.5
+      target_temp_register: 2031
+
+    - name: "Kronoterm 1. krog"
+      slave: 20
+      address: 2159
+      input_type: holding
+      data_type: int16
+      scale: 0.1
+      precision: 1
+      min_temp: 15
+      max_temp: 35
+      temp_step: 0.5
+      target_temp_register: 2186
