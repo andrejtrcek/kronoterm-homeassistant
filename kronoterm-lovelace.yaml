@@ -1,0 +1,77 @@
+type: vertical-stack
+cards:
+  - type: entities
+    title: Kronoterm – Status
+    entities:
+      - entity: sensor.kronoterm_delovanje_sistema_opis_2
+        name: Delovanje sistema
+      - entity: sensor.kronoterm_funkcija_delovanja_opis_2
+        name: Funkcija delovanja
+      - entity: sensor.kronoterm_program_delovanja_opis_2
+        name: Program delovanja
+      - entity: sensor.kronoterm_rezim_delovanja_status
+        name: Režim delovanja
+      - entity: sensor.kronoterm_obtocna_crpalka_opis
+        name: Glavna obtočna črpalka
+      - entity: sensor.kronoterm_napaka_opozorilo_opis_2
+        name: Napaka / Opozorilo
+  - type: entities
+    title: Upravljanje
+    show_header_toggle: false
+    entities:
+      - entity: switch.kronoterm_sistem
+        name: Delovanje sistema
+      - entity: switch.kronoterm_prisilno_sv
+        name: Prisilno gretje sanitarne vode
+      - entity: switch.kronoterm_dodatni_vir
+        name: Dodatni vir
+      - entity: switch.kronoterm_rezervni_vir
+        name: Rezervni vir
+      - entity: input_select.kronoterm_rezim
+        name: Režim delovanja
+      - entity: input_select.kronoterm_sv
+        name: Sanitarna voda
+      - entity: input_select.kronoterm_tc
+        name: Toplotna črpalka
+  - type: grid
+    title: Nastavitve temperatur
+    columns: 2
+    square: false
+    cards:
+      - type: conditional
+        conditions:
+          - entity: sensor.kronoterm_sv_status
+            state_not: "0"
+        card:
+          type: tile
+          entity: climate.kronoterm_sanitarna_voda
+          features:
+            - type: target-temperature
+          name: Sanitarna voda
+      - type: conditional
+        conditions:
+          - entity: sensor.kronoterm_rezim_delovanja_nastavitev_surovo
+            state_not: "1"
+          - entity: sensor.kronoterm_tc_status
+            state_not: "0"
+        card:
+          type: tile
+          entity: climate.kronoterm_zalogovnik
+          features:
+            - type: target-temperature
+          name: Ogrevanje
+  - type: entities
+    title: Trenutne temperature
+    entities:
+      - entity: sensor.kronoterm_zunanja_temperatura
+        name: Zunanja temperatura
+      - entity: sensor.kronoterm_sanitarna_voda
+        name: Sanitarna voda
+      - entity: sensor.kronoterm_temperatura_zalogovnika
+        name: Zalogovnik
+      - entity: sensor.kronoterm_dvizni_vod
+        name: Dvižni vod
+      - entity: sensor.kronoterm_vstopna_voda_vira
+        name: Vstopna voda vira
+      - entity: sensor.kronoterm_izhodna_voda_vira
+        name: Izhodna voda vira
